@@ -3,7 +3,10 @@ from flask import Flask, request
 
 app = Flask(__name__)
 
-todos = [{'text': 'Buy milk'}, {'text':'Learn Python'}]
+todos = [
+  {'id': 'abc', 'text': 'Buy milk'}, 
+  {'id': 'def', 'text': 'Learn Python'}
+]
 
 @app.route('/todos', methods=['GET'])
 def get_todos():
@@ -17,7 +20,10 @@ def create_todo():
 
 @app.route('/delete', methods=['POST'])
 def delete_todo():
-  todos.pop()
+  request_data = request.get_json()
+  print(request_data)
+  todos.remove(request_data)
+
   return {'todos': todos}
 
 @app.route('/update', methods=['POST'])
