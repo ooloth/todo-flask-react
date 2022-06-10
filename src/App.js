@@ -1,38 +1,25 @@
 import { useEffect, useState } from 'react'
-import logo from './logo.svg'
-import './App.css'
 
 function App() {
-  const [currentTime, setCurrentTime] = useState(0)
+  const [todos, setTodos] = useState([])
 
   useEffect(() => {
-    fetch('/time')
+    fetch('/todos')
       .then(res => res.json())
       .then(data => {
-        console.log('data', data)
-        setCurrentTime(data.time)
+        setTodos(data.todos)
       })
   }, [])
 
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-
-        <p>The current time is {currentTime}.</p>
-      </header>
-    </div>
+    <main>
+      <h1>Todos</h1>
+      <ul>
+        {todos.map(todo => (
+          <li>{todo}</li>
+        ))}
+      </ul>
+    </main>
   )
 }
 
